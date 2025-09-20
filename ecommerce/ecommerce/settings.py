@@ -24,11 +24,13 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'products',
+    'corsheaders',  # Added for CORS support
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add after SecurityMiddleware
+    'corsheaders.middleware.CorsMiddleware',  # Added for CORS, placed early
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -104,3 +106,11 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Allow your front-end during development
+    "https://alx-project-nexus-o9nx.onrender.com",  # Optional, for self-origin
+]
+CORS_ALLOW_ALL_ORIGINS = False  # Set to True for testing all origins, False for specific ones
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies/auth headers if needed
